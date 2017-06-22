@@ -18,27 +18,33 @@ class Analyzer():
         file = open(positives, "r")
        
         for line in file:
+	    # skip comments 
             if line.startswith(";") or line == "\n":
                 continue
-            else:
+            # add a word (in a line ) to data structure
+	    else:
                 self.positives.add(line.rstrip("\n"))
         file.close()
 
         file = open(negatives, "r")
        
         for line in file:
+            # skip comments
             if line.startswith(";") or line == "\n":
                 continue
-            else:
+            # add a word (in a line ) to data structure
+	    else:
                 self.negatives.add(line.rstrip("\n"))
         file.close()
 
     def analyze(self, text):
         """Analyze text for sentiment, returning its score."""
 	
+	# split a tweet into list of words, words will be analyzed 
         tokenizer = nltk.tokenize.TweetTokenizer()
         tokens = tokenizer.tokenize(text)
-
+	
+	# analyze each word 
         count = 0
         for word in tokens:
             if word.lower() in self.positives:
